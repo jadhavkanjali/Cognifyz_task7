@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognifyz Technology - Task 2</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body style="margin: 0; font-family: Arial, sans-serif; background: #f1f5fb; color: #243047;">
+
+    <header style="background: #273c75; color: white; text-align: center; padding: 25px 15px;">
+        <h1 style="margin: 0;">Cognifyz Technology</h1>
+        <p>Task 2: Form Validation</p>
+    </header>
+
+    <main style="max-width: 600px; margin: 35px auto; padding: 0 16px;">
+        <section style="background: white; padding: 28px; border-radius: 14px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+
+            <h2 style="text-align: center; color: #273c75;">Student Registration</h2>
+            <p style="text-align: center; color: #64748b;">
+                Enter your details below.
+            </p>
+
+            <form id="registrationForm" action="/submit" method="POST"
+                  onsubmit="return validateForm()">
+
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name"
+                       minlength="2" maxlength="60" required
+                       placeholder="Enter your full name">
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email"
+                       maxlength="254" required
+                       placeholder="example@email.com">
+
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age"
+                       min="13" max="100" step="1" required
+                       placeholder="Enter your age">
+
+                <label for="course">Select Course</label>
+                <select id="course" name="course" required>
+                    <option value="">-- Choose a course --</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Python Programming">Python Programming</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Cyber Security">Cyber Security</option>
+                </select>
+
+                <label for="message">Message (Optional)</label>
+                <textarea id="message" name="message"
+                          rows="4" maxlength="500"
+                          placeholder="Tell us about your interests"></textarea>
+
+                <p id="errorMessage" role="alert" style="color: #dc2626;"></p>
+
+                <button type="submit">Submit Registration</button>
+                <button type="reset" class="reset-button">Clear Form</button>
+            </form>
+        </section>
+
+        <p class="footer">
+            Created by Anjali Jadhav | Cognifyz Technology
+        </p>
+    </main>
+
+    <script>
+        function validateForm() {
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const age = document.getElementById("age").value;
+            const course = document.getElementById("course").value;
+            const message = document.getElementById("message").value;
+            const error = document.getElementById("errorMessage");
+
+            error.textContent = "";
+
+            if (!/^[\p{L}][\p{L}\p{M} .'-]*$/u.test(name) ||
+                name.length < 2 || name.length > 60) {
+                error.textContent = "Please enter a valid full name.";
+                return false;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                error.textContent = "Please enter a valid email address.";
+                return false;
+            }
+
+            if (age === "" || !Number.isInteger(Number(age)) ||
+                Number(age) < 13 || Number(age) > 100) {
+                error.textContent = "Age must be between 13 and 100.";
+                return false;
+            }
+
+            const allowedCourses = [
+                "Web Development",
+                "Python Programming",
+                "Data Science",
+                "Cyber Security"
+            ];
+
+            if (!allowedCourses.includes(course)) {
+                error.textContent = "Please select a valid course.";
+                return false;
+            }
+
+            if (message.length > 500) {
+                error.textContent = "Message cannot exceed 500 characters.";
+                return false;
+            }
+
+            return true;
+        }
+
+        document.getElementById("registrationForm")
+            .addEventListener("reset", function () {
+                document.getElementById("errorMessage").textContent = "";
+            });
+    </script>
+
+</body>
+</html>

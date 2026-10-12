@@ -1,0 +1,16 @@
+
+{
+  "name": "cognifyz-task-2",
+  "version": "1.0.0",
+  "description": "Registration form with client-side and server-side validation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "author": "Anjali Jadhav",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
